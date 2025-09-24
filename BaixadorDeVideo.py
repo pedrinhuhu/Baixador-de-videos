@@ -41,6 +41,9 @@ def baixar():
             'outtmpl': os.path.join(pasta, '%(title)s.%(ext)s')
         }
 
+        if playlist_var.get() == 'único':
+            ydl_opts['noplaylist'] = True
+
         if tipo == 'vídeo':
             resolucao = qualidade.replace('p', '')
             ydl_opts['format'] = f'bestvideo[height<={resolucao}]+bestaudio/best[height<={resolucao}]'
@@ -80,12 +83,19 @@ tk.Label(janela, text="Cole um ou mais LINKS (uma por linha):", font=('Arial', 1
 entrada_urls = tk.Text(janela, height=5, width=60)
 entrada_urls.pack(pady=5)
 
-'''Tipo (vídeo ou áudio)'''
+'''Tipo (vídeo ou áudio/ playlist ou video unico)'''
 tipo_var = tk.StringVar(value='vídeo')
 frame_tipo = tk.Frame(janela)
 frame_tipo.pack(pady=5)
 tk.Radiobutton(frame_tipo, text="Vídeo", variable=tipo_var, value='vídeo', command=lambda: atualizar_opcoes()).pack(side='left', padx=10)
 tk.Radiobutton(frame_tipo, text="Áudio (MP3)", variable=tipo_var, value='áudio', command=lambda: atualizar_opcoes()).pack(side='left')
+
+playlist_var = tk.StringVar(value='único')
+frame_playlist = tk.Frame(janela)
+frame_playlist.pack(pady=5)
+tk.Radiobutton(frame_playlist, text="Baixar video/música", variable=playlist_var, value='único').pack(side='left', padx=10)
+tk.Radiobutton(frame_playlist, text="Baixar playlist", variable=playlist_var, value='playlist').pack(side='left')
+
 
 '''Qualidade'''
 tk.Label(janela, text="Qualidade:", font=('Arial', 11)).pack()
@@ -111,3 +121,4 @@ barra_progresso.pack(pady=20)
 tk.Button(janela, text="Baixar", command=iniciar_download, font=('Arial', 12), bg="green", fg="white").pack(pady=10)
 
 janela.mainloop()
+
