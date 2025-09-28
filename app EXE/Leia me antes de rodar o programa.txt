@@ -1,0 +1,19 @@
+Se na hora de baixar os vídeos ocorrer um erro pedindo o ffmpeg siga os passos abaixo:
+
+primeiro baixe o chocolatey:
+
+no seu powershell rode esse comando primeiro: Set-ExecutionPolicy AllSigned
+
+e após rode esse: 
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+
+com isso o chocolatey está instalado na sua maquina.
+
+
+agora para instalar o ffmpeg, abra o powershell novamente e cole esse comando: choco install ffmpeg
+
+
+
+após rodar o comando o ffmpeg estará instalando na sua maquina e o app para baixar vídeos funcionando normalmente.
